@@ -1,0 +1,21 @@
+#FROM python:2.7-slim
+#WORKDIR /app
+#ADD . /app
+#RUN pip install --trusted-host pypi.python.org Flask Redis
+#EXPOSE 80
+#CMD ["python", "app.py"]
+
+FROM python:3.7.0-alpine3.8
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make app.py available
+COPY app.py .
+
+EXPOSE 80
+
+CMD ["python", "app.py"]
