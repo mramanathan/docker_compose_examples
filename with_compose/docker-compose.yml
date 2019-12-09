@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  pyapp_cities:
+    build:
+      context: .
+    image: pyappfe:latest
+    ports:
+      - 80:80
+    networks:
+      - pyappnet
+
+  redis:
+    image: redis:4.0.11-alpine
+    ports:
+      - 6379:6379
+    networks:
+      - pyappnet
+    volumes:
+      - redis-data:/redis-data
+
+networks:
+  pyappnet:
+volumes:
+  redis-data:
