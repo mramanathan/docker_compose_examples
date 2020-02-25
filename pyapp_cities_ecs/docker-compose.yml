@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  pyapp_cities:
+    image: ecr-repo-url/pyappfe:latest
+    ports:
+      - 80:80
+    cpu_shares: 0.5
+    mem_limit: 256m
+
+  redis:
+    image: redis:4.0.11-alpine
+    ports:
+      - 6379:6379
+    cpu_shares: 0.5
+    mem_limit: 512m
