@@ -1,0 +1,22 @@
+---
+- name: Deploy "Favorite Cities" Python app
+  hosts: deployment-nodes
+  remote_user: ubuntu
+  gather_facts: true
+  tasks:
+  - name: Clone git repo
+    git:
+      repo: https://github.com/mramanathan/docker_compose_examples
+      dest: "{{ ansible_env.HOME }}/docker_compose_examples"
+      refspec: 'refs/heads/master'
+
+  - name: Start favorite cities services
+    docker_compose:
+      project_src: "{{ ansible_env.HOME }}/docker_compose_examples/with_compose/"
+      project_name: favcities_app
+      build: yes
+      state: present
+    register: docker_compose_output
+
+  - debug:
+      var: docker_compose_output
