@@ -1,0 +1,23 @@
+pipeline {
+   agent {
+       label 'docker'
+   }
+
+   stages {
+      stage('scm') {
+         steps {
+            git url:'https://github.com/mramanathan/docker_compose_examples', branch: 'master'
+         }
+      }
+      stage('build') {
+          steps {
+              script {
+                  echo "build docker image, pyappfe"
+                  dir("with_compose") {
+                      sh "sudo docker build -t pyappfe:latest -f Dockerfile ."
+                  }
+              }
+          }
+      }
+   }
+}
