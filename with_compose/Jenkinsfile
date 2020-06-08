@@ -3,12 +3,18 @@ pipeline {
        label 'docker'
    }
 
+   options {
+       timeout(time: 15, unit: 'MINUTES')
+       buildDiscarder(logRotator(numToKeepStr: '2'))
+   }
+
    stages {
       stage('scm') {
          steps {
             git url:'https://github.com/mramanathan/docker_compose_examples', branch: 'master'
          }
       }
+
       stage('build') {
           steps {
               script {
@@ -19,5 +25,11 @@ pipeline {
               }
           }
       }
+   }
+
+   post {
+       always {
+           step([$class: 'WsCleanup'])
+       }
    }
 }
