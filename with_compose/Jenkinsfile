@@ -19,7 +19,7 @@ pipeline {
           steps {
               echo "build docker image, pyappfe"
               dir("with_compose") {
-                  sh "sudo docker build --rm --no-cache -t pyappfe:latest -f Dockerfile ."
+                  sh "docker build --rm --no-cache -t pyappfe:latest -f Dockerfile ."
               }
           }
       }
